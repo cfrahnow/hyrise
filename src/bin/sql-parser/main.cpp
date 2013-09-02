@@ -17,13 +17,18 @@ namespace {
 
   void removeWhitespaces(std::string& str) {
     bool lastOneSpace = false;
+    bool inQuote = false;
+
     for (size_t i = 0; i < str.size(); ++i) {
      //replace \n by spaces
       if (str.at(i) == '\n')
         str.replace(i, 1, " ");
+      
+      if (str.at(i) == '"')
+        inQuote = !inQuote;
 
       //remove multiple spaces
-      if (str.at(i) == ' ') {
+      if (!inQuote && str.at(i) == ' ') {
         if (lastOneSpace)
 	  str.erase(i--, 1);
 	else
