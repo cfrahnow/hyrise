@@ -1,22 +1,22 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#ifndef SRC_BIN_SQL_PARSER_STATEMENT_H
-#define SRC_BIN_SQL_PARSER_STATEMENT_H
+#ifndef SRC_BIN_SQL_PARSER_EXPRESSION_H
+#define SRC_BIN_SQL_PARSER_EXPRESSION_H
 
 #include <string>
 #include <map>
 #include <memory>
 
-class Statement;
-typedef std::shared_ptr<Statement> statement_ptr_t;
-typedef std::vector<statement_ptr_t> statement_list_t;
+class Expression;
+typedef std::shared_ptr<Expression> expression_ptr_t;
+typedef std::vector<expression_ptr_t> expression_list_t;
 
-class Statement {
+class Expression {
 public:
   virtual std::string toString() const = 0;
 
 public:
-  static statement_ptr_t parse(const std::string& query);
-  static statement_list_t getStatements(const std::string& query);
+  static expression_ptr_t parse(const std::string& query);
+  static expression_list_t getExpressions(const std::string& query);
 
   template <typename T>
   static bool registerKeyword(const std::string& keyword, bool exceptionIfExists = true) {
@@ -26,18 +26,18 @@ public:
       return false;
     }
 
-    keywordMap()[keyword] = new StatementFactory<T>();
+    keywordMap()[keyword] = new ExpressionFactory<T>();
     return true;
   }
 
 private:
-  struct AbstractStatementFactory {
-    virtual statement_ptr_t parse(std::string query) = 0;
+  struct AbstractExpressionFactory {
+    virtual expression_ptr_t parse(std::string query) = 0;
   };
 
   template <typename T>
-  struct StatementFactory : public AbstractStatementFactory{
-    virtual statement_ptr_t parse(const std::string query) {
+  struct ExpressionFactory : public AbstractExpressionFactory{
+    virtual expression_ptr_t parse(const std::string query) {
       return T::parse(query);
     }
   };
@@ -53,10 +53,10 @@ private:
     typedef bool result_type;
   };
 
-  typedef std::map<std::string, AbstractStatementFactory*, sql_keyword_less> keywordMap_t;
+  typedef std::map<std::string, AbstractExpressionFactory*, sql_keyword_less> keywordMap_t;
   
   static keywordMap_t& keywordMap();
 };
 
-#endif // SRC_BIN_SQL_PARSER_STATEMENT_H
+#endif // SRC_BIN_SQL_PARSER_EXPRESSION_H
 

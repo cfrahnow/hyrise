@@ -1,19 +1,19 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
-#include "Statement.h"
+#include "Expression.h"
 
 #include <iostream>
 #include <boost/tokenizer.hpp>
 
-#include "statements/ConstantStatement.h"
+#include "expressions/ConstantExpression.h"
 
-statement_ptr_t Statement::parse(const std::string& query) {
-  auto statements = getStatements(query);
+expression_ptr_t Expression::parse(const std::string& query) {
+  auto expression = getExpressions(query);
 
-  return statement_ptr_t(nullptr);
+  return expression_ptr_t(nullptr);
 }
 
-statement_list_t Statement::getStatements(const std::string& query) {
-  statement_list_t list;
+expression_list_t Expression::getExpressions(const std::string& query) {
+  expression_list_t list;
 
   boost::char_separator<char> sep(" ");
   boost::tokenizer<boost::char_separator<char>> tokens(query, sep);
@@ -22,7 +22,7 @@ statement_list_t Statement::getStatements(const std::string& query) {
     if (keywordMap().find(t) != keywordMap().end())
       std::cout << " (Keyword)";
     else {
-      ConstantStatement::parse(t);
+      ConstantExpression::parse(t);
     }
     std::cout << std::endl;
   }
@@ -30,7 +30,7 @@ statement_list_t Statement::getStatements(const std::string& query) {
   return list;
 }
 
-Statement::keywordMap_t& Statement::keywordMap() {
+Expression::keywordMap_t& Expression::keywordMap() {
   static keywordMap_t* const keywordMap = new keywordMap_t();
   return *keywordMap;
 }

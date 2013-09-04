@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 
-#include "Statement.h"
+#include "Expression.h"
 
 namespace {
   std::string argsToStr(const int argc, char** const args) {
@@ -46,6 +46,6 @@ namespace {
 int main (int argc, char** args) {
   std::string query = argsToStr(argc, args);
   removeWhitespaces(query);
-  Statement::parse(query);
+  Expression::parse(query);
 }
 
