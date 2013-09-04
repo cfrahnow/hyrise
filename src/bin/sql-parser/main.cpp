@@ -46,7 +46,6 @@ namespace {
 int main (int argc, char** args) {
   std::string query = argsToStr(argc, args);
   removeWhitespaces(query);
-
-  std::cout << query << std::endl;
+  Statement::parse(query);
 }
 
