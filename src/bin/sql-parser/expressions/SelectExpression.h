@@ -6,16 +6,14 @@
 
 class SelectExpression : public RelationExpression {
  public:
-  std::string toString() const {
-    return "select"
+  virtual std::string toString() const {
+    return "select";
   }
 
- public:
+  virtual bool evaluable() const {
+    return false;
+  }
 };
-
-namespace {
-  const auto _ = Expression::registerKeyword<SelectExpression>("select");
-}
 
 #endif // SRC_BIN_SQL_PARSER_SELECTEXPRESSION_H
 

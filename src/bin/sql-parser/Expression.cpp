@@ -19,8 +19,9 @@ expression_list_t Expression::getExpressions(const std::string& query) {
   boost::tokenizer<boost::char_separator<char>> tokens(query, sep);
   for (auto t : tokens) {
     std::cout << "\"" << t << "\"";
-    if (keywordMap().find(t) != keywordMap().end())
+    if (keywordMap().find(t) != keywordMap().end()) {
       std::cout << " (Keyword)";
+    }
     else {
       ConstantExpression::parse(t);
     }

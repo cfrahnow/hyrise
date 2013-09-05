@@ -11,10 +11,10 @@ typedef std::shared_ptr<Expression> expression_ptr_t;
 typedef std::vector<expression_ptr_t> expression_list_t;
 
 class Expression {
-public:
+ public:
   virtual std::string toString() const = 0;
 
-public:
+ public:
   static expression_ptr_t parse(const std::string& query);
   static expression_list_t getExpressions(const std::string& query);
 
@@ -25,12 +25,11 @@ public:
         throw std::runtime_error("keyword \"" + keyword + "\" has already been registered");
       return false;
     }
-
     keywordMap()[keyword] = new ExpressionFactory<T>();
     return true;
   }
 
-private:
+ private:
   struct AbstractExpressionFactory {
     virtual expression_ptr_t parse(std::string query) = 0;
   };
