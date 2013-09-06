@@ -31,8 +31,8 @@ expression_list_t Expression::getExpressions(const std::string& query) {
   return list;
 }
 
-Expression::keywordMap_t& Expression::keywordMap() {
-  static keywordMap_t* const keywordMap = new keywordMap_t();
+Expression::keyword_map_t& Expression::keywordMap() {
+  static keyword_map_t* const keywordMap = new keyword_map_t();
   return *keywordMap;
 }
 

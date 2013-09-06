@@ -52,9 +52,9 @@ class Expression {
     typedef bool result_type;
   };
 
-  typedef std::map<std::string, AbstractExpressionFactory*, sql_keyword_less> keywordMap_t;
+  typedef std::map<std::string, AbstractExpressionFactory*, sql_keyword_less> keyword_map_t;
   
-  static keywordMap_t& keywordMap();
+  static keyword_map_t& keywordMap();
 };
 
 #endif // SRC_BIN_SQL_PARSER_EXPRESSION_H
