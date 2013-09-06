@@ -45,6 +45,8 @@ namespace { //sql operators
   const auto _asterix =  Operator::registerOperator<UnimplementedExpression>("*");
   const auto _div =      Operator::registerOperator<UnimplementedExpression>("/");
 
+  const auto _concat =   Operator::registerOperator<UnimplementedExpression>(",");
+
   const auto _eq =       Operator::registerOperator<UnimplementedExpression>("=");
   const auto _less =     Operator::registerOperator<UnimplementedExpression>("<");
   const auto _greater =  Operator::registerOperator<UnimplementedExpression>(">");
