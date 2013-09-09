@@ -1,14 +1,43 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 
 #include "ConstantExpression.h"
+#include <sstream>
 #include <iostream>
 
+#include "IntExpression.h"
+#include "FloatExpression.h"
+#include "BoolExpression.h"
+#include "StringExpression.h"
+#include "NullExpression.h"
+
 namespace {
+  enum BaseType {Dec, Hex};
+
+  template <typename T, BaseType base = Dec>
+  T readFromStr(const std::string& str) {
+    std::stringstream s;
+    switch (base) {
+      case Dec: s << std::dec; break;
+      case Hex: s << std::hex; break;
+    }
+    s << str;
+    T t;
+    s >> t;
+    return t;
+  }
+  
   std::string strToLower(std::string str) {
     std::transform(str.begin(), str.end(), str.begin(), tolower);
     return str;
   }
 
+  bool strToBool(const std::string& str) {
+    const std::string strl = strToLower(str);
+    if (str == "true") return true;
+    else if (str == "false") return false;
+    throw std::runtime_error("\"" + str + "\" is neither true or false");
+  }
+  
   bool isHex(const std::string& str) {
     size_t current;
     if (str.size() > 2 && str[0] == '0' && str[1] == 'x')
@@ -95,23 +124,33 @@ namespace {
 
 
 expression_ptr_t ConstantExpression::parse(const std::string& query) {
+  std::stringstream s;
   if (isHex(query)) {
-    std::cout << " !HEX! ";
+    s << std::hex << query;
+    int i;
+    s >> i;
+    return std::make_shared<ConstantIntExpression>(readFromStr<int>(query));
   }
   if (isDecimal(query)) {
-    std::cout << " !DECIMAL! ";
+    s << query;
+    int i;
+    s >> i;
+    return std::make_shared<ConstantIntExpression>(readFromStr<int>(query));
   }
   if (isReal(query)) {
-    std::cout << " !REAL! ";
+    s << query;
+    float f;
+    s >> f;
+    return std::make_shared<ConstantFloatExpression>(f);
   }
   if (isString(query)) {
-    std::cout << " !STRING! ";
+    return std::make_shared<ConstantStringExpression>(query.substr(1, query.size() - 2));
   }
   if (isNull(query)) {
-    std::cout << " !NULL! "; 
+    return std::make_shared<NullExpression>();
   }
   if (isBool(query)) {
-    std::cout << " !BOOL! "; 
+    return std::make_shared<ConstantBoolExpression>(strToBool(query));
   }
   return expression_ptr_t(nullptr);
 }

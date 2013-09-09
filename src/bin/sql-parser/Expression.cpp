@@ -23,7 +23,10 @@ expression_list_t Expression::getExpressions(const std::string& query) {
       std::cout << " (Keyword)";
     }
     else {
-      ConstantExpression::parse(t);
+      auto e = ConstantExpression::parse(t);
+      if (e != nullptr) {
+        std::cout << "(" << e->toString() << ")";
+      }
     }
     std::cout << std::endl;
   }

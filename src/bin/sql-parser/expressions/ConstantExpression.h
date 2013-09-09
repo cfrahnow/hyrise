@@ -4,7 +4,7 @@
 
 #include "ValueExpression.h"
 
-class ConstantExpression : public ValueExpression {
+class ConstantExpression : public virtual ValueExpression {
  public:
   std::string toString() const = 0;
   virtual bool evaluable() const {
