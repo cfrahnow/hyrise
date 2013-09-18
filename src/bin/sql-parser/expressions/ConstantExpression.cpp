@@ -100,11 +100,11 @@ namespace {
   bool isString(const std::string& str) {
     char quoteChar;
     size_t current;
-    if (str[0] == '\'' || str[0] == '\"')
-      quoteChar = str[0];
+    if (str.at(0) == '\'' || str.at(0) == '\"')
+      quoteChar = str.at(0);
     else return false;
     for (current = 1; current < str.size(); ++current) {
-      if (str[current] == quoteChar)
+      if (str.at(current) == quoteChar && str.at(current-1) != '\\')
         break;
     }
     return current == str.size() - 1;

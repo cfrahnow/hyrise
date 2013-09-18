@@ -4,14 +4,11 @@
 
 #include "Expression.h"
 
-class Operator : public Expression {
+class Operator : public virtual Expression {
  public:
   virtual std::string toString() const = 0;
 
  public:
-  static expression_ptr_t parse(const std::string& query);
-  static expression_list_t getExpressions(const std::string& query);
-
   template <typename T>
   static bool registerOperator(const std::string& op, bool exceptionIfExists = true) {
     if (operatorSet().find(op) != operatorSet().end()) {

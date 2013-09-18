@@ -4,7 +4,7 @@
 
 #include "ValueExpression.h"
 
-class RelationExpression : public ValueExpression {
+class RelationExpression : public virtual ValueExpression {
 public:
   virtual std::string toString() const = 0;
 };

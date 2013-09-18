@@ -4,9 +4,8 @@
 
 #include "../Expression.h"
 
-class ValueExpression : public Expression {
+class ValueExpression : public virtual Expression {
  public:
-  virtual std::string toString() const = 0;
   virtual bool evaluable() const = 0;
 };
 

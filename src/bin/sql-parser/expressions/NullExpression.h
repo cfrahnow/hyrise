@@ -4,7 +4,7 @@
 
 #include "ConstantExpression.h"
 
-class NullExpression : public virtual ValueExpression {
+class NullExpression : public virtual ValueExpression, public ConstantExpression {
  public:
    virtual std::string toString() const {
      return "null";
@@ -12,6 +12,9 @@ class NullExpression : public virtual ValueExpression {
    virtual bool evaluable() const {
      return true;
    }
+  virtual unsigned priority() const {
+    return ConstantExpression::priority();
+  }
 };
 
 #endif // SRC_BIN_SQL_PARSER_NULLEXPRESSION_H

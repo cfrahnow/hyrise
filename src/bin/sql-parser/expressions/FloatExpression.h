@@ -21,6 +21,10 @@ class ConstantFloatExpression : public FloatExpression, public ConstantExpressio
   virtual bool evaluable() const {
     return true;
   }
+  virtual unsigned priority() const {
+    return ConstantExpression::priority();
+  }
+
   float value() const {
     return _value;
   }

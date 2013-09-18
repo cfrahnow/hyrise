@@ -13,6 +13,7 @@ typedef std::vector<expression_ptr_t> expression_list_t;
 class Expression {
  public:
   virtual std::string toString() const = 0;
+  virtual unsigned priority() const = 0;
 
  public:
   static expression_ptr_t parse(const std::string& query);
@@ -31,13 +32,13 @@ class Expression {
 
  private:
   struct AbstractExpressionFactory {
-    virtual expression_ptr_t parse(std::string query) = 0;
+    virtual expression_ptr_t create() = 0;
   };
 
   template <typename T>
   struct ExpressionFactory : public AbstractExpressionFactory{
-    virtual expression_ptr_t parse(const std::string query) {
-      return T::parse(query);
+    virtual expression_ptr_t create() {
+      return std::make_shared<T>();
     }
   };
 

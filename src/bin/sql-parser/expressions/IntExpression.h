@@ -21,6 +21,10 @@ class ConstantIntExpression : public IntExpression, public ConstantExpression {
   virtual bool evaluable() const {
     return true;
   }
+  virtual unsigned priority() const {
+    return ConstantExpression::priority();
+  }
+
   int value() const {
     return _value;
   }

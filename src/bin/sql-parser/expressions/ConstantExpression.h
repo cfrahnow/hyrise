@@ -7,8 +7,8 @@
 class ConstantExpression : public virtual ValueExpression {
  public:
   std::string toString() const = 0;
-  virtual bool evaluable() const {
-    return true;
+  virtual unsigned priority() const {
+    return 100;
   }
 
  public:

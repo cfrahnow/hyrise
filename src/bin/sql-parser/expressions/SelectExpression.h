@@ -13,6 +13,10 @@ class SelectExpression : public RelationExpression {
   virtual bool evaluable() const {
     return false;
   }
+  virtual unsigned priority() const {
+    return 100;
+  }
+
 };
 
 #endif // SRC_BIN_SQL_PARSER_SELECTEXPRESSION_H

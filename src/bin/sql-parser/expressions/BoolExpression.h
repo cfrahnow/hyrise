@@ -20,6 +20,10 @@ class ConstantBoolExpression : public BoolExpression, public ConstantExpression 
   virtual bool evaluable() const {
     return true;
   }
+  virtual unsigned priority() const {
+    return ConstantExpression::priority();
+  }
+
   bool value() const {
     return _value;
   }
