@@ -33,6 +33,7 @@ class Operator : public virtual Expression {
     typedef bool result_type;
   };
 
+ public:
   typedef std::set<std::string, sql_operator_less> operator_set_t;
   
   static operator_set_t& operatorSet();

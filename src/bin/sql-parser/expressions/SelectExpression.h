@@ -6,6 +6,8 @@
 
 class SelectExpression : public RelationExpression {
  public:
+  SelectExpression(const std::string& expr) {}
+
   virtual std::string toString() const {
     return "select";
   }

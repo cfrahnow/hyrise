@@ -4,6 +4,7 @@
 #include <iostream>
 #include <boost/tokenizer.hpp>
 
+#include "Operator.h"
 #include "expressions/ConstantExpression.h"
 
 expression_ptr_t Expression::parse(const std::string& query) {
@@ -20,11 +21,21 @@ expression_list_t Expression::getExpressions(const std::string& query) {
 	    << "\"" << std::endl;
   boost::char_separator<char> sep(" ");
   boost::tokenizer<boost::char_separator<char>> tokens(query, sep);
+  
+  for (auto op : Operator::operatorSet()) {
+    std::cout << op;
+    size_t pos = (size_t) -1;
+    while ((pos = query.find(op, pos + 1)) != query.npos) {
+      std::cout << "(" << pos << ")"; 
+    }
+    std::cout << std::endl;
+  }
+  
   for (auto t : tokens) {
     std::cout << "\"" << t << "\"";
     auto keyword = keywordMap().find(t);
     if (keyword != keywordMap().end()) {
-      auto e = (*keyword).second->create();
+      auto e = (*keyword).second->create(t);
       std::cout << " (Keyword)";
     }
     else {

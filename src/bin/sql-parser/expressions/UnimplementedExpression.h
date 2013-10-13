@@ -7,7 +7,7 @@
 
 class UnimplementedExpression : public virtual Expression {
  public:
-  UnimplementedExpression() {
+  UnimplementedExpression(const std::string& expr) {
     //throw std::runtime_error("Expression is unimplemented");
   }
 
@@ -21,6 +21,8 @@ class UnimplementedExpression : public virtual Expression {
 
 class UnimplementedOperator : public Operator, public UnimplementedExpression {
  public:
+  UnimplementedOperator(const std::string& expr) : UnimplementedExpression(expr) {}
+
   std::string toString() const {
     return "<unimplementedOperator>";
   }

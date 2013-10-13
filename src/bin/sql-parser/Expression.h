@@ -31,14 +31,19 @@ class Expression {
   }
 
  private:
+  typedef bool(*isKeyword_func_t) (const std::string& query, size_t pos);
+  static bool defaultIsKeyword(const std::string& query, size_t pos) { return true; }
+
   struct AbstractExpressionFactory {
-    virtual expression_ptr_t create() = 0;
+    AbstractExpressionFactory(isKeyword_func_t isKeywordFunc = defaultIsKeyword) : isKeyword(isKeywordFunc) {}
+    virtual expression_ptr_t create(const std::string& expr) = 0;
+    isKeyword_func_t isKeyword;
   };
 
   template <typename T>
   struct ExpressionFactory : public AbstractExpressionFactory{
-    virtual expression_ptr_t create() {
-      return std::make_shared<T>();
+    virtual expression_ptr_t create(const std::string& expr) {
+      return std::make_shared<T>(expr);
     }
   };
 

@@ -13,7 +13,7 @@ class StringExpression : public virtual ValueExpression {
 
 class ConstantStringExpression : public StringExpression, public ConstantExpression {
  public:
-  ConstantStringExpression(const std::string value) : _value(value) {}
+  ConstantStringExpression(const std::string& value) : _value(value) {}
   virtual std::string toString() const {
     return value();
   }
