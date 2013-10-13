@@ -4,8 +4,7 @@
 #include <sstream>
 #include <iostream>
 
-#include "IntExpression.h"
-#include "FloatExpression.h"
+#include "NumericExpression.h"
 #include "BoolExpression.h"
 #include "StringExpression.h"
 #include "NullExpression.h"
